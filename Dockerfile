@@ -22,7 +22,7 @@ RUN           --mount=type=secret,uid=100,id=CA \
               --mount=type=secret,id=APT_SOURCES \
               --mount=type=secret,id=APT_CONFIG \
               apt-get update -qq && \
-              apt-get install -y --no-install-recommends \
+              apt-get install -qq --no-install-recommends \
                 dbus=1.14.10-1~deb12u1 \
                 avahi-daemon=0.8-10 \
                 cups=2.4.2-3+deb12u5 && \
@@ -41,7 +41,7 @@ RUN           --mount=type=secret,uid=100,id=CA \
               --mount=type=secret,id=APT_SOURCES \
               --mount=type=secret,id=APT_CONFIG \
               apt-get update -qq && \
-              apt-get install -y --no-install-recommends \
+              apt-get install -qq --no-install-recommends \
                 printer-driver-brlaser=6-3 && \
               apt-get -qq autoremove      && \
               apt-get -qq clean           && \
