@@ -49,10 +49,17 @@ RUN           --mount=type=secret,uid=100,id=CA \
               rm -rf /tmp/*               && \
               rm -rf /var/tmp/*
 
+# Deviate avahi temporary files into /tmp (there is a socket, so, probably need exec)
+RUN           mkdir -p "$XDG_RUNTIME_DIR"/avahi-daemon; ln -s "$XDG_RUNTIME_DIR"/avahi-daemon /run; chown avahi:avahi /run/avahi-daemon; chmod 777 /run/avahi-daemon
+
 USER          dubo-dubon-duponey
 
 EXPOSE        663
 
 # Cups will add printers there with cupsctl
 VOLUME        /etc/cups
+
+# Used by dbus and avahi (see entrypoint.sh)
+# /tmp/runtime by default - cannot be configured since build time makes use of it
+VOLUME        "$XDG_RUNTIME_DIR"
 

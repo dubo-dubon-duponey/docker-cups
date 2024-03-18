@@ -8,8 +8,14 @@ readonly root
 # shellcheck source=/dev/null
 . "$root/mdns.sh"
 
-# Necessary for adding printers
+# Necessary for adding printers with lpadmin
 helpers::dir::writable /etc/cups
+
+# Avahi and dbus
+# /tmp/runtime
+helpers::dir::writable "$XDG_RUNTIME_DIR/avahi-daemon"
+# /tmp/runtime
+helpers::dir::writable "$XDG_RUNTIME_DIR/dbus" create
 
 # mDNS
 mdns::start::dbus
